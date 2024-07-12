@@ -4,6 +4,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
+  await prisma.contact.deleteMany({});
   await prisma.contact.createMany({
     data: [
       {
@@ -35,6 +36,8 @@ async function main() {
       },
     ],
   });
+
+  console.log('Database seeded successfully.')
 }
 
 main()
