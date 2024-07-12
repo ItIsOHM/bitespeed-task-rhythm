@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
-app.post("identify", async (req, res) => {
+app.post("/identify", async (req, res) => {
   const { email, phoneNumber } = req.body;
 
   if (!email && !phoneNumber) {
@@ -98,14 +98,14 @@ app.post("identify", async (req, res) => {
       primaryContact.email,
       ...secondaryContacts.map((contact) => contact.email),
     ])
-  ).filter(Boolean)
+  ).filter(Boolean);
 
   const phoneNumbers = Array.from(
     new Set([
       primaryContact.phoneNumber,
       ...secondaryContacts.map((contact) => contact.phoneNumber),
     ])
-  ).filter(Boolean)
+  ).filter(Boolean);
 
   const secondaryContactIds = secondaryContacts.map((contact) => contact.id);
 
@@ -114,11 +114,11 @@ app.post("identify", async (req, res) => {
       primaryContactId: primaryContact.id,
       emails,
       phoneNumbers,
-      secondaryContactIds
-    }
+      secondaryContactIds,
+    },
   });
+});
 
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-  });
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
